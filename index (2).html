@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Latinoamericana de Crypto</title>
+<style>
+  :root{
+    --navy:#0F1B3D;
+    --navy-soft:#16244F;
+    --ivory:#F7F5F0;
+    --white:#FFFFFF;
+    --gold:#B68D40;
+    --gold-soft:#D9BD83;
+    --slate:#5B6470;
+    --ink:#1B1F2A;
+    --line:#27345F;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Calibri','Segoe UI',Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Cambria','Bookman Old Style',Georgia,serif;
+    margin:0;
+    font-weight:700;
+    color:inherit;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'Calibri',Arial,sans-serif;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:14px;
+    display:block;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,27,61,0.96);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;}
+  .brand{
+    color:var(--white);
+    font-family:'Cambria',Georgia,serif;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:.01em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand .mark{
+    width:30px;height:30px;border:1.5px solid var(--gold);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Cambria',serif;font-size:13px;color:var(--gold);font-weight:700;
+  }
+  .navlinks{display:flex;gap:34px;font-size:14px;color:#C9CFE0;}
+  .navlinks a{text-decoration:none;transition:color .15s;}
+  .navlinks a:hover{color:var(--gold-soft);}
+  .nav-cta{
+    background:transparent;border:1px solid var(--gold);color:var(--gold-soft);
+    padding:9px 18px;border-radius:3px;font-size:13.5px;text-decoration:none;
+    font-weight:600;letter-spacing:.02em;transition:background .15s, color .15s;
+  }
+  .nav-cta:hover{background:var(--gold);color:var(--navy);}
+
+  /* HERO */
+  header.hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 80% -10%, rgba(182,141,64,0.16), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, #0B1530 100%);
+    color:var(--white);
+    padding:96px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:linear-gradient(180deg, transparent, rgba(0,0,0,.7) 40%, transparent 90%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:56px;
+    position:relative;z-index:2;align-items:center;
+  }
+  .hero h1{
+    font-size:46px;line-height:1.14;letter-spacing:-.01em;
+    margin-bottom:22px;
+  }
+  .hero h1 em{color:var(--gold-soft);font-style:normal;}
+  .hero p.lede{
+    font-family:'Calibri',Arial,sans-serif;
+    font-size:17px;line-height:1.6;color:#C9CFE0;max-width:480px;margin-bottom:34px;
+  }
+  .hero-ctas{display:flex;gap:14px;align-items:center;}
+  .btn-primary{
+    background:var(--gold);color:var(--navy);font-weight:700;font-size:14.5px;
+    padding:14px 26px;border-radius:3px;text-decoration:none;letter-spacing:.01em;
+    transition:background .15s;
+  }
+  .btn-primary:hover{background:var(--gold-soft);}
+  .btn-ghost{
+    color:#DCE1ED;font-size:14.5px;text-decoration:none;border-bottom:1px solid rgba(220,225,237,.35);
+    padding-bottom:2px;
+  }
+
+  /* SIGNATURE: certificate card */
+  .cert-card{
+    background:linear-gradient(165deg,#121E45,#0C1530);
+    border:1px solid #2A3868;
+    border-radius:6px;
+    padding:26px 26px 22px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.55);
+    position:relative;
+  }
+  .cert-card::before{
+    content:"";position:absolute;top:14px;right:14px;bottom:14px;left:14px;
+    border:1px dashed rgba(182,141,64,.35);border-radius:3px;pointer-events:none;
+  }
+  .cert-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+  .cert-label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;}
+  .cert-id{font-family:'Courier New',monospace;font-size:11px;color:#8893B8;}
+  .cert-title{font-family:'Cambria',serif;color:#fff;font-size:19px;margin-bottom:4px;}
+  .cert-sub{font-size:12.5px;color:#9CA6C6;margin-bottom:20px;}
+  .cert-row{display:flex;justify-content:space-between;font-size:12.5px;padding:9px 0;border-top:1px solid #232F58;color:#C5CADF;}
+  .cert-row span:first-child{color:#7E89AD;}
+  .cert-hash{
+    margin-top:16px;background:#0A1230;border:1px solid #232F58;border-radius:4px;
+    padding:11px 13px;font-family:'Courier New',monospace;font-size:10.5px;color:#7CC9A8;
+    word-break:break-all;line-height:1.5;
+  }
+  .cert-foot{
+    display:flex;justify-content:space-between;align-items:center;margin-top:16px;
+  }
+  .cert-status{
+    display:flex;align-items:center;gap:6px;font-size:11.5px;color:#7CC9A8;font-weight:600;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:#7CC9A8;display:inline-block;
+       box-shadow:0 0 0 0 rgba(124,201,168,.6);animation:pulse 2.2s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(124,201,168,.5);}
+    70%{box-shadow:0 0 0 7px rgba(124,201,168,0);}
+    100%{box-shadow:0 0 0 0 rgba(124,201,168,0);}
+  }
+  .qr-mini{
+    width:34px;height:34px;border:1.5px solid #3A4675;border-radius:3px;
+    display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);padding:3px;gap:1.5px;
+  }
+  .qr-mini div{background:#3A4675;}
+  .qr-mini div:nth-child(odd){background:transparent;}
+
+  /* SECTIONS */
+  section{padding:84px 0;}
+  .section-head{max-width:620px;margin-bottom:48px;}
+  .section-head h2{font-size:32px;color:var(--navy);line-height:1.25;}
+  .section-head p{color:var(--slate);font-size:15.5px;margin-top:14px;line-height:1.6;}
+
+  /* PROBLEM */
+  .problem{background:var(--white);}
+  .risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E4E0D5;border:1px solid #E4E0D5;}
+  .risk{background:var(--white);padding:34px 30px;}
+  .risk .num{font-family:'Cambria',serif;font-size:13px;color:var(--gold);font-weight:700;margin-bottom:14px;display:block;}
+  .risk h3{font-size:17px;color:var(--navy);margin-bottom:10px;line-height:1.35;}
+  .risk p{font-size:14px;color:var(--slate);line-height:1.55;margin:0;}
+  .problem-result{
+    margin-top:0;border:1px solid #E4E0D5;border-top:none;background:#FBFAF6;
+    padding:26px 30px;font-size:14.5px;color:var(--navy);line-height:1.6;
+  }
+  .problem-result b{color:#8A5A00;}
+
+  /* SOLUTION / HOW */
+  .solution{background:var(--ivory);}
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .flow-step{position:relative;padding:28px 22px 24px;background:var(--white);border:1px solid #E4E0D5;border-radius:4px;}
+  .flow-step .step-no{
+    font-family:'Cambria',serif;color:var(--gold);font-size:22px;font-weight:700;margin-bottom:14px;display:block;
+  }
+  .flow-step h4{font-size:15px;color:var(--navy);margin-bottom:8px;font-family:'Cambria',serif;font-weight:700;}
+  .flow-step p{font-size:13px;color:var(--slate);line-height:1.55;margin:0;}
+  .flow-arrow{
+    display:none;
+  }
+
+  /* SHIELD LIST */
+  .shield{background:var(--navy);color:var(--white);}
+  .shield .section-head h2{color:var(--white);}
+  .shield .section-head p{color:#A9B1CC;}
+  .shield-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 48px;}
+  .shield-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid #232F58;}
+  .shield-item .ico{
+    flex:none;width:20px;height:20px;margin-top:2px;color:var(--gold-soft);
+  }
+  .shield-item span{font-size:14.5px;color:#D6DAEC;line-height:1.45;}
+
+  /* PRICING */
+  .pricing{background:var(--white);}
+  table.price{width:100%;border-collapse:collapse;font-size:14.5px;}
+  table.price th{
+    text-align:left;font-family:'Calibri',Arial,sans-serif;font-size:11.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--slate);font-weight:700;padding:0 0 14px;border-bottom:2px solid var(--navy);
+  }
+  table.price td{padding:20px 0;border-bottom:1px solid #E7E3D8;color:var(--ink);vertical-align:top;}
+  table.price td.concept{font-weight:700;color:var(--navy);width:30%;}
+  table.price td.amount{font-family:'Cambria',serif;font-weight:700;color:var(--navy);width:18%;font-size:17px;}
+  table.price td.cond{color:var(--slate);font-size:13.5px;}
+  .price-note{margin-top:22px;font-size:13px;color:var(--slate);}
+
+  /* MARKET */
+  .market{background:var(--ivory);}
+  .market-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  .market-card{
+    background:var(--white);border:1px solid #E4E0D5;border-radius:4px;padding:26px 16px;text-align:center;
+  }
+  .market-card .glyph{font-family:'Cambria',serif;font-size:24px;color:var(--gold);margin-bottom:12px;}
+  .market-card span{font-size:13px;color:var(--navy);font-weight:700;line-height:1.4;}
+
+  /* CTA FOOTER */
+  .cta-band{
+    background:linear-gradient(160deg,#0F1B3D,#0B1530);color:var(--white);
+    padding:90px 0;text-align:center;position:relative;overflow:hidden;
+  }
+  .cta-band h2{font-size:34px;line-height:1.3;max-width:680px;margin:0 auto 16px;}
+  .cta-band p{color:#A9B1CC;font-size:15.5px;margin-bottom:34px;}
+  .cta-band .btn-primary{padding:15px 32px;font-size:15px;}
+
+  footer{background:#0B1530;color:#7E89AD;padding:36px 0;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;}
+  footer a{color:#A9B1CC;text-decoration:none;}
+
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .risk-grid,.flow,.shield-grid,.market-grid{grid-template-columns:1fr;}
+    table.price td.concept,table.price td.amount{width:auto;}
+    .navlinks{display:none;}
+    .hero h1{font-size:34px;}
+    footer .wrap{flex-direction:column;gap:10px;text-align:center;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dot{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* Estilos para el contrato PDF */
+  .contrato-pdf {
+    font-family: 'Calibri', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #1B1F2A;
+  }
+  .contrato-pdf h1, .contrato-pdf h2, .contrato-pdf h3 {
+    font-family: 'Cambria', Georgia, serif;
+    margin: 12px 0;
+    font-weight: 700;
+  }
+  .contrato-pdf h1 { font-size: 14px; text-align: center; }
+  .contrato-pdf h2 { font-size: 12px; }
+  .contrato-pdf h3 { font-size: 11px; }
+  .contrato-pdf p { margin: 8px 0; text-align: justify; }
+  .contrato-pdf ul { margin: 8px 0; padding-left: 20px; }
+  .contrato-pdf li { margin: 4px 0; }
+  .contrato-pdf table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .contrato-pdf td, .contrato-pdf th { border: 1px solid #000; padding: 6px; text-align: left; }
+  .contrato-pdf th { background: #f0f0f0; font-weight: 700; }
+  .firma-space { height: 40px; border-bottom: 1px solid #000; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="mark">R</span>RED LATINOAMERICANA DE CRYPTO</div>
+    <div class="navlinks">
+      <a href="#problema">El problema</a>
+      <a href="#solucion">Cómo funciona</a>
+      <a href="#blindaje">Blindaje</a>
+      <a href="#pricing">Precios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a class="nav-cta" href="#cta">Adherirse</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Red de reputación · BVI</span>
+      <h1>Opere con respaldo documental.<br><em>No con la palabra.</em></h1>
+      <p class="lede">La primera red latinoamericana de reputación y respaldo documental para operadores OTC de USDT. Registramos, certificamos y anclamos en blockchain cada operación — sin custodiar un solo USDT.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#cta">Solicitar adhesión</a>
+        <a class="btn-ghost" href="#solucion">Ver cómo funciona</a>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-top">
+        <div>
+          <div class="cert-label">Certificado de posición</div>
+          <div class="cert-id">N.º RLC-2026-04471</div>
+        </div>
+        <div class="qr-mini">
+          <div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div>
+          <div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+      <div class="cert-title">Carta de Registro de Contraparte</div>
+      <div class="cert-sub">Operación declarada con fecha cierta</div>
+
+      <div class="cert-row"><span>Cliente</span><span>•••• 8841</span></div>
+      <div class="cert-row"><span>Contraparte</span><span>•••• 2096</span></div>
+      <div class="cert-row"><span>Monto</span><span>USDT 184,500</span></div>
+      <div class="cert-row"><span>Score de reputación</span><span>A+ · 27 op.</span></div>
+
+      <div class="cert-hash">hash 0x7e2f…c91a<br>timestamp anclado en blockchain pública · inmutable</div>
+
+      <div class="cert-foot">
+        <div class="cert-status"><span class="dot"></span> Verificado</div>
+        <span class="cert-id">consultable por terceros</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="origin" id="origen" style="background:var(--navy);padding:56px 0;border-top:1px solid rgba(217,189,131,0.18);border-bottom:1px solid rgba(217,189,131,0.18);">
+  <div class="wrap" style="max-width:880px;">
+    <p style="font-family:'Cambria',serif;font-size:18px;line-height:1.7;color:#D9DFEF;text-align:center;margin:0;">
+      Miles de millones de dólares se mueven cada año en el mercado OTC de USDT de América Latina. Sin embargo, ese mercado sigue operando sin reglas comunes: no hay un estándar compartido para acreditar buena fe, historial de cumplimiento ni evidencia objetiva entre las partes. <span style="color:var(--gold-soft);">La Red Latinoamericana de Crypto nace para cerrar esa brecha</span>, dando a los operadores serios la infraestructura documental que el mercado todavía no tiene.
+    </p>
+  </div>
+</section>
+
+<section class="problem" id="problema">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">El problema</span>
+      <h2>Operar en USDT significa operar sin red</h2>
+      <p>Tres razones por las que una operación en USDT, sin respaldo documental, deja a ambas partes expuestas.</p>
+    </div>
+    <div class="risk-grid">
+      <div class="risk">
+        <span class="num">01</span>
+        <h3>Sin historia verificable</h3>
+        <p>No hay forma de saber si la otra parte ha cumplido operaciones antes. Cada transacción es un salto al vacío.</p>
+      </div>
+      <div class="risk">
+        <span class="num">02</span>
+        <h3>Sin prueba de origen de fondos</h3>
+        <p>Sin un registro compartido, es imposible acreditar ante un tercero que los fondos tienen origen lícito.</p>
+      </div>
+      <div class="risk">
+        <span class="num">03</span>
+        <h3>Sin herramientas de cobro</h3>
+        <p>Si hay incumplimiento, no hay ejecutabilidad legal, ni forma sistemática de recuperar lo adeudado.</p>
+      </div>
+    </div>
+    <div class="problem-result">
+      <b>El resultado:</b> El operador serio pierde oportunidades. El operador dubitativo asume riesgos que no puede cuantificar. Y el operador de mala fe prospera.
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="solucion">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Cómo funciona</span>
+      <h2>Blindaje documental: cuatro pasos</h2>
+      <p>Así es como protegemos tu operación, de punta a punta.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="step-no">1</span>
+        <h4>KYC/AML</h4>
+        <p>Verificamos tu identidad y acreditamos buena fe conforme estándares internacionales.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-no">2</span>
+        <h4>Registro</h4>
+        <p>Al operar, registramos tu operación con fecha cierta ante nuestros servidores.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-no">3</span>
+        <h4>Certificación</h4>
+        <p>Emitimos un Certificado de Posición consultable por futuras contrapartes.</p>
+      </div>
+      <div class="flow-step">
+        <span class="step-no">4</span>
+        <h4>Respaldo opcional</h4>
+        <p>Si incumple, ejecutamos pagaré o asesoramos la cobranza.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shield" id="blindaje">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>¿Qué incluye el blindaje?</h2>
+      <p>Beneficios incluidos en cada adhesión a la Red.</p>
+    </div>
+    <div class="shield-grid">
+      <div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Verificación KYC/AML:</strong> identidad confirmada ante terceros.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Cartas de Contraparte:</strong> una por cada operación registrada.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Certificado de Posición:</strong> tu historial de cumplimiento.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Registro con fecha cierta:</strong> prueba inmutable de cada transacción.</span>
+        </div>
+      </div>
+      <div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Historial de cumplimiento:</strong> cuántas operaciones, todas pagadas.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Pagaré ejecutable (opcional):</strong> hasta USD 200k, renovable.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Asesoramiento de cobranza:</strong> asistencia activa si hay incumplimiento.</span>
+        </div>
+        <div class="shield-item">
+          <span class="ico">✓</span>
+          <span><strong>Sin custodia de fondos:</strong> solo documentación. Tú controlas tus USDT.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Transparencia</span>
+      <h2>Tarifa única: solo pagas por valor</h2>
+      <p>Sin comisiones por operación. Sin premiums anuales. Pagas cuando hay resultado.</p>
+    </div>
+    <table class="price">
+      <thead>
+        <tr>
+          <th>Concepto</th>
+          <th class="amount">Monto</th>
+          <th>Condición de cobro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="concept">Contrato de Adhesión (fee único a la Red)</td>
+          <td class="amount">USD 2.000</td>
+          <td class="cond">Contado o 24 cuotas de USD 100 (USD 2.400 total)</td>
+        </tr>
+        <tr>
+          <td class="concept">Ejecución de Pagaré</td>
+          <td class="amount">USD 2.000</td>
+          <td class="cond">Solo si hay cobro efectivo, total o parcial</td>
+        </tr>
+        <tr>
+          <td class="concept">Seguimiento y Asesoramiento de Cobranza</td>
+          <td class="amount">10%</td>
+          <td class="cond">Solo si hay recuperación efectiva</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="price-note"><strong>Nota:</strong> Queda expresamente excluida cualquier comisión por operación de venta de USDT, así como cualquier premium o fee anual recurrente.</p>
+  </div>
+</section>
+
+<section class="market" id="mercado">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Aplicaciones</span>
+      <h2>Casos de uso: desde operadores hasta empresas</h2>
+      <p>La Red atiende a todo tipo de participantes del mercado OTC latinoamericano.</p>
+    </div>
+    <div class="market-grid">
+      <div class="market-card">
+        <div class="glyph">💱</div>
+        <span>Casas de cambio OTC independientes</span>
+      </div>
+      <div class="market-card">
+        <div class="glyph">🤝</div>
+        <span>P2P sin plataforma centralizada</span>
+      </div>
+      <div class="market-card">
+        <div class="glyph">🏢</div>
+        <span>Pequeñas empresas que reciben USDT</span>
+      </div>
+      <div class="market-card">
+        <div class="glyph">📊</div>
+        <span>Traders con operaciones recurrentes</span>
+      </div>
+      <div class="market-card">
+        <div class="glyph">🌐</div>
+        <span>Remesadores internacionales</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Contacto</span>
+      <h2>¿Preguntas? Nos encontramos aquí</h2>
+      <p>Ponte en contacto con nuestro equipo para resolver dudas sobre adhesión, contratos y servicios.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:32px;">
+      <div style="color:var(--navy);">
+        <h3 style="font-size:20px;margin-bottom:24px;color:var(--navy);">Información de Contacto</h3>
+        <div style="margin-bottom:24px;">
+          <label style="display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:6px;">Teléfono</label>
+          <a href="tel:+5491164977108" style="color:var(--navy);font-size:16px;font-weight:600;text-decoration:none;">+54 9 11 6497-7108</a>
+        </div>
+        <div style="margin-bottom:24px;">
+          <label style="display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700;margin-bottom:6px;">Correo Electrónico</label>
+          <a href="mailto:redlatamcrypto@redlatamcom.com" style="color:var(--navy);font-size:16px;font-weight:600;text-decoration:none;">redlatamcrypto@redlatamcom.com</a>
+        </div>
+      </div>
+      <div style="background:var(--navy);border-radius:4px;padding:28px;color:var(--white);">
+        <h3 style="color:var(--white);margin-bottom:16px;font-size:20px;">Listo para comenzar</h3>
+        <p style="color:#C9CFE0;margin-bottom:24px;line-height:1.6;">Da el primer paso hacia una operación más segura y documentada. Solicita tu adhesión ahora.</p>
+        <button class="btn-primary" onclick="abrirRegistro()" style="cursor:pointer;">Solicitar adhesión</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band" id="cta">
+  <div class="wrap">
+    <h2>Más que una red: una prueba de buena fe ante cualquier corte.</h2>
+    <p>Documento informativo. Sujeto a la regulación BVI.</p>
+    <button class="btn-primary" onclick="abrirRegistro()" style="cursor:pointer;border:none;">Solicitar adhesión</button>
+  </div>
+</div>
+
+<!-- MODAL REGISTRO -->
+<div id="registroModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);align-items:center;justify-content:center;">
+  <div style="background-color:var(--white);border-radius:8px;padding:48px;max-width:500px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.3);animation:slideIn .3s ease;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+      <h2 style="color:var(--navy);font-size:24px;margin:0;">Solicitud de Adhesión</h2>
+      <button onclick="cerrarRegistro()" style="background:none;border:none;font-size:28px;color:var(--slate);cursor:pointer;">✕</button>
+    </div>
+    <div id="msgExito1" style="display:none;padding:16px;background:#E8F5E9;border:1px solid #4CAF50;border-radius:4px;color:#2E7D32;margin-bottom:16px;text-align:center;font-weight:600;">
+      ✅ Datos guardados. Abriendo contrato...
+    </div>
+    <form id="formRegistro" style="display:flex;flex-direction:column;gap:18px;">
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Nombre Completo *</label>
+        <input type="text" id="nombre" placeholder="Juan Pérez García" required style="padding:12px 14px;border:1px solid #E4E0D5;border-radius:4px;font-family:inherit;font-size:14px;color:var(--ink);">
+        <div id="error-nombre" style="color:#D32F2F;font-size:12px;margin-top:4px;display:none;">Campo requerido</div>
+      </div>
+      
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Correo Electrónico *</label>
+        <input type="email" id="email" placeholder="tu@email.com" required style="padding:12px 14px;border:1px solid #E4E0D5;border-radius:4px;font-family:inherit;font-size:14px;color:var(--ink);">
+        <div id="error-email" style="color:#D32F2F;font-size:12px;margin-top:4px;display:none;">Correo inválido</div>
+      </div>
+      
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" placeholder="+54 9 11 6497-7108" style="padding:12px 14px;border:1px solid #E4E0D5;border-radius:4px;font-family:inherit;font-size:14px;color:var(--ink);">
+      </div>
+      
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Empresa / Razón Social *</label>
+        <input type="text" id="empresa" placeholder="Mi Empresa S.A." required style="padding:12px 14px;border:1px solid #E4E0D5;border-radius:4px;font-family:inherit;font-size:14px;color:var(--ink);">
+        <div id="error-empresa" style="color:#D32F2F;font-size:12px;margin-top:4px;display:none;">Campo requerido</div>
+      </div>
+      
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;">
+        <button type="button" onclick="cerrarRegistro()" style="background:transparent;border:1px solid #E4E0D5;color:var(--slate);padding:10px 20px;border-radius:3px;cursor:pointer;font-weight:600;">Cancelar</button>
+        <button type="submit" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;border-radius:3px;cursor:pointer;font-weight:700;font-size:14px;">→ Continuar con Contrato</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL CONTRATO -->
+<div id="contratoModal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.6);align-items:center;justify-content:center;">
+  <div style="background-color:var(--white);border-radius:8px;padding:48px;max-width:500px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.3);animation:slideIn .3s ease;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+      <h2 style="color:var(--navy);font-size:24px;margin:0;">Contrato de Adhesión</h2>
+      <button onclick="cerrarContrato()" style="background:none;border:none;font-size:28px;color:var(--slate);cursor:pointer;">✕</button>
+    </div>
+    <div id="msgExito2" style="display:none;padding:16px;background:#E8F5E9;border:1px solid #4CAF50;border-radius:4px;color:#2E7D32;margin-bottom:16px;text-align:center;font-weight:600;">
+      ✅ Contrato descargado exitosamente
+    </div>
+    <form id="formContrato" style="display:flex;flex-direction:column;gap:18px;">
+      <div style="background:#F5F5F5;padding:12px;border-radius:4px;margin-bottom:16px;">
+        <label style="color:var(--slate);font-size:12px;">Email de registro (no editable)</label>
+        <input type="email" id="emailContrato" readonly style="background:transparent;border:none;color:var(--navy);font-weight:600;padding:0;margin-top:4px;">
+      </div>
+      
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;">Tipo de Adhesión *</label>
+        <select id="tipoAdhesion" required style="padding:12px 14px;border:1px solid #E4E0D5;border-radius:4px;font-family:inherit;font-size:14px;color:var(--ink);">
+          <option value="">-- Selecciona una opción --</option>
+          <option value="contado">💰 Pago Contado - USD 2.000</option>
+          <option value="cuotas">📅 Plan de Cuotas - 24 x USD 100 (USD 2.400)</option>
+        </select>
+        <div id="error-tipo" style="color:#D32F2F;font-size:12px;margin-top:4px;display:none;">Debes seleccionar un tipo</div>
+      </div>
+      
+      <div style="display:flex;flex-direction:column;">
+        <label style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;">
+          <input type="checkbox" id="terminos" required>
+          Acepto los términos del Contrato de Adhesión
+        </label>
+        <div id="error-terminos" style="color:#D32F2F;font-size:12px;margin-top:4px;display:none;">Debes aceptar para continuar</div>
+      </div>
+      
+      <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;">
+        <button type="button" onclick="cerrarContrato()" style="background:transparent;border:1px solid #E4E0D5;color:var(--slate);padding:10px 20px;border-radius:3px;cursor:pointer;font-weight:600;">Volver</button>
+        <button type="submit" id="btnDescargar" style="background:var(--gold);color:var(--navy);border:none;padding:12px 28px;border-radius:3px;cursor:pointer;font-weight:700;font-size:14px;">📥 Descargar Contrato</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  @keyframes slideIn {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script>
+// GESTIÓN DE MODALES
+function abrirRegistro() {
+  document.getElementById('registroModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarRegistro() {
+  document.getElementById('registroModal').style.display = 'none';
+  document.getElementById('formRegistro').reset();
+  document.getElementById('msgExito1').style.display = 'none';
+  document.querySelectorAll('[id^="error-"]').forEach(e => e.style.display = 'none');
+  document.body.style.overflow = 'auto';
+}
+
+function abrirContrato(emailUsado) {
+  document.getElementById('emailContrato').value = emailUsado;
+  document.getElementById('contratoModal').style.display = 'flex';
+  document.getElementById('registroModal').style.display = 'none';
+}
+
+function cerrarContrato() {
+  document.getElementById('contratoModal').style.display = 'none';
+  document.getElementById('formContrato').reset();
+  document.getElementById('msgExito2').style.display = 'none';
+  document.querySelectorAll('[id^="error-"]').forEach(e => e.style.display = 'none');
+  document.body.style.overflow = 'auto';
+}
+
+// FORMULARIO REGISTRO
+// Variable global para almacenar datos del formulario
+let datosRegistro = {};
+
+document.getElementById('formRegistro').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  document.querySelectorAll('[id^="error-"]').forEach(e => e.style.display = 'none');
+  
+  const nombre = document.getElementById('nombre').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const empresa = document.getElementById('empresa').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  
+  let valido = true;
+  
+  if (!nombre) {
+    document.getElementById('error-nombre').style.display = 'block';
+    valido = false;
+  }
+  
+  if (!email || !email.includes('@')) {
+    document.getElementById('error-email').style.display = 'block';
+    valido = false;
+  }
+  
+  if (!empresa) {
+    document.getElementById('error-empresa').style.display = 'block';
+    valido = false;
+  }
+  
+  if (!valido) return;
+  
+  // Guardar datos en variable global
+  datosRegistro = {
+    nombre: nombre,
+    email: email,
+    empresa: empresa,
+    telefono: telefono
+  };
+  
+  document.getElementById('msgExito1').style.display = 'block';
+  
+  setTimeout(() => {
+    abrirContrato(email);
+  }, 1000);
+});
+
+// FORMULARIO CONTRATO
+document.getElementById('formContrato').addEventListener('submit', function(e) {
+  e.preventDefault();
+  console.log('formContrato submit ejecutado');
+  
+  document.querySelectorAll('[id^="error-"]').forEach(e => e.style.display = 'none');
+  
+  const tipo = document.getElementById('tipoAdhesion').value;
+  const terminos = document.getElementById('terminos').checked;
+  
+  console.log('Tipo:', tipo, 'Términos:', terminos);
+  
+  let valido = true;
+  
+  if (!tipo) {
+    document.getElementById('error-tipo').style.display = 'block';
+    valido = false;
+  }
+  
+  if (!terminos) {
+    document.getElementById('error-terminos').style.display = 'block';
+    valido = false;
+  }
+  
+  if (!valido) {
+    console.log('Formulario no válido');
+    return;
+  }
+  
+  console.log('Formulario válido. Datos guardados:', datosRegistro);
+  
+  const btnDescargar = document.getElementById('btnDescargar');
+  btnDescargar.disabled = true;
+  btnDescargar.textContent = '⏳ Descargando...';
+  
+  // Usar los datos guardados del primer formulario
+  const datosDescarga = {
+    nombre: datosRegistro.nombre,
+    email: datosRegistro.email,
+    empresa: datosRegistro.empresa,
+    telefono: datosRegistro.telefono,
+    tipo: tipo
+  };
+  
+  console.log('Datos para descargar:', datosDescarga);
+  
+  descargarContratoCompleto(datosDescarga);
+  
+  document.getElementById('msgExito2').style.display = 'block';
+  btnDescargar.disabled = false;
+  btnDescargar.textContent = '📥 Descargar Contrato';
+  
+  setTimeout(() => {
+    cerrarContrato();
+  }, 1500);
+});
+
+// FUNCIÓN: DESCARGAR CONTRATO ORIGINAL
+function descargarContratoCompleto(datos) {
+  try {
+    // Validar que los datos existan
+    if (!datos.nombre || !datos.empresa || !datos.email) {
+      console.error('Datos incompletos:', datos);
+      alert('Error: Datos incompletos');
+      return;
+    }
+    
+    console.log('Iniciando descarga del contrato...');
+    
+    // Crear elemento de descarga
+    const link = document.createElement('a');
+    link.href = 'Contrato_Red_Crypto.pdf';
+    link.download = 'Contrato_Red_Crypto.pdf';
+    link.style.display = 'none';
+    
+    // Agregar al DOM, hacer click y eliminar
+    document.body.appendChild(link);
+    console.log('Link creado y agregado al DOM');
+    
+    link.click();
+    console.log('Click ejecutado');
+    
+    // Limpiar
+    setTimeout(() => {
+      document.body.removeChild(link);
+      console.log('Link removido del DOM');
+    }, 100);
+    
+  } catch (error) {
+    console.error('Error en descargarContratoCompleto:', error);
+    alert('Error al descargar el contrato');
+  }
+}
+
+// Cerrar modales con ESC y click fuera
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    cerrarRegistro();
+    cerrarContrato();
+  }
+});
+
+document.getElementById('registroModal').addEventListener('click', function(e) {
+  if (e.target === this) cerrarRegistro();
+});
+
+document.getElementById('contratoModal').addEventListener('click', function(e) {
+  if (e.target === this) cerrarContrato();
+});
+</script>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Red Latinoamericana de Crypto · BVI</span>
+    <a href="mailto:redlatamcrypto@redlatamcom.com">Contacto: redlatamcrypto@redlatamcom.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
